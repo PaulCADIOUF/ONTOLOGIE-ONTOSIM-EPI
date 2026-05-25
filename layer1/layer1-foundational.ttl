@@ -1,0 +1,214 @@
+@prefix : <http://www.ontosim-epi.org/ontology/layer1> .
+@prefix ro: <http://purl.obolibrary.org/obo/RO_> .
+@prefix bfo: <http://purl.obolibrary.org/obo/BFO_> .
+@prefix epi: <http://www.ontosim-epi.org/ontology#> .
+@prefix iao: <http://purl.obolibrary.org/obo/IAO_> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://www.ontosim-epi.org/ontology/layer1> .
+
+<http://www.ontosim-epi.org/ontology/layer1> rdf:type owl:Ontology ;
+                                              owl:versionIRI <http://www.ontosim-epi.org/ontology/layer1/1.0> ;
+                                              dcterms:created 2026 ;
+                                              dcterms:creator "Paul Cheikh Anta DIOUF" ;
+                                              rdfs:comment "Couche 1 de l'ontologie OntoSim-Epi. les concepts fondateurs indépendants de tout domaine applicatif. Importe BFO, RO et IAO via la méthode MIREOT."@fr ;
+                                              rdfs:label "OntoSim-Epi Layer 1 - Foundational Ontologies"@en ;
+                                              owl:versionInfo "1.0" .
+
+#################################################################
+#    Annotation properties
+#################################################################
+
+###  http://purl.org/dc/terms/created
+dcterms:created rdf:type owl:AnnotationProperty .
+
+
+###  http://purl.org/dc/terms/creator
+dcterms:creator rdf:type owl:AnnotationProperty .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://purl.obolibrary.org/obo/IAO_0000136
+<http://purl.obolibrary.org/obo/IAO_0000136> rdf:type owl:ObjectProperty ;
+                                             rdfs:domain <http://purl.obolibrary.org/obo/IAO_0000030> ;
+                                             rdfs:comment "A (currently) primitive relation that relates an information artifact to an entity."@en ,
+                                                          "Un modèle de simulation est à propos d'une maladie et d'un contexte"@fr ;
+                                             rdfs:label "is about" ;
+                                             rdfs:seeAlso "http://purl.obolibrary.org/obo/iao.owl" .
+
+
+###  http://purl.obolibrary.org/obo/RO_0000053
+<http://purl.obolibrary.org/obo/RO_0000053> rdf:type owl:ObjectProperty ;
+                                            rdfs:range <http://purl.obolibrary.org/obo/BFO_0000020> ;
+                                            rdfs:comment "Inverse of characteristic_of"@en ;
+                                            rdfs:label "has characteristic"@en ;
+                                            rdfs:seeAlso "http://purl.obolibrary.org/obo/ro.owl" .
+
+
+###  http://purl.obolibrary.org/obo/RO_0000056
+<http://purl.obolibrary.org/obo/RO_0000056> rdf:type owl:ObjectProperty ;
+                                            owl:inverseOf <http://purl.obolibrary.org/obo/RO_0000057> ;
+                                            rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000002> ;
+                                            rdfs:range <http://purl.obolibrary.org/obo/BFO_0000003> ;
+                                            rdfs:comment "Agent → processus de simulation"@fr ;
+                                            rdfs:label "participates_in" ;
+                                            rdfs:seeAlso "http://purl.obolibrary.org/obo/ro.owl" .
+
+
+###  http://purl.obolibrary.org/obo/RO_0000057
+<http://purl.obolibrary.org/obo/RO_0000057> rdf:type owl:ObjectProperty ;
+                                            rdfs:subPropertyOf owl:topObjectProperty ;
+                                            rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000003> ;
+                                            rdfs:range <http://purl.obolibrary.org/obo/BFO_0000002> ;
+                                            rdfs:comment "SimulationExecution → acteurs"@fr ;
+                                            rdfs:label "has_participant"@en ;
+                                            rdfs:seeAlso "http://purl.obolibrary.org/obo/ro.owl" .
+
+
+###  http://purl.obolibrary.org/obo/RO_0000086
+<http://purl.obolibrary.org/obo/RO_0000086> rdf:type owl:ObjectProperty ;
+                                            rdfs:subPropertyOf <http://purl.obolibrary.org/obo/RO_0000053> ;
+                                            rdfs:range <http://purl.obolibrary.org/obo/BFO_0000019> ;
+                                            rdfs:comment "SimulationModel → paramètres épidémiologiques"@fr ,
+                                                         "a relation between an independent continuant (the bearer) and a quality, in which the quality specifically depends on the bearer for its existence"@en ;
+                                            rdfs:label "has quality" ;
+                                            rdfs:seeAlso "http://purl.obolibrary.org/obo/ro.owl" .
+
+
+###  http://purl.obolibrary.org/obo/RO_0001025
+<http://purl.obolibrary.org/obo/RO_0001025> rdf:type owl:ObjectProperty ;
+                                            rdfs:comment "Population → région géographique (ContextKnowledge)"@fr ,
+                                                         "a relation between two independent continuants, the target and the location, in which the target is entirely within the location"@en ;
+                                            rdfs:label "located in"@en ;
+                                            rdfs:seeAlso "http://purl.obolibrary.org/obo/ro.owl" .
+
+
+###  http://purl.obolibrary.org/obo/RO_0002233
+<http://purl.obolibrary.org/obo/RO_0002233> rdf:type owl:ObjectProperty ;
+                                            rdfs:subPropertyOf <http://purl.obolibrary.org/obo/RO_0000057> ;
+                                            rdfs:domain <http://purl.obolibrary.org/obo/BFO_0000015> ;
+                                            rdfs:comment "RecompositionProcess → modèles sources (DK, CK, MSK, EK)"@fr ,
+                                                         "p has input c iff: p is a process, c is a material entity, c is a participant in p, c is present at the start of p, and the state of c is modified during p."@en ;
+                                            rdfs:label "has input"@en ;
+                                            rdfs:seeAlso "http://purl.obolibrary.org/obo/ro.owl" .
+
+
+###  http://purl.obolibrary.org/obo/RO_0002234
+<http://purl.obolibrary.org/obo/RO_0002234> rdf:type owl:ObjectProperty ;
+                                            rdfs:subPropertyOf <http://purl.obolibrary.org/obo/RO_0000057> ;
+                                            rdfs:comment "RecompositionProcess → nouveau modèle généré"@fr ,
+                                                         """p has output c iff c is a participant in p, c is present at the end of p, and c is not present at the beginning of p.
+
+p has output c iff c is a participant in p, c is present at the end of p, and c is not present in the same state at the beginning of p."""@en ;
+                                            rdfs:label "has output"@en ;
+                                            rdfs:seeAlso "http://purl.obolibrary.org/obo/ro.owl" .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://purl.obolibrary.org/obo/BFO_0000001
+<http://purl.obolibrary.org/obo/BFO_0000001> rdf:type owl:Class ;
+                                             rdfs:comment "BFO:0000001 - importé via MIREOT. Racine de toute la hierarchie BFO."@fr ;
+                                             rdfs:label "entity"@en ;
+                                             rdfs:seeAlso "http://purl.obolibrary.org/obo/bfo.owl"^^xsd:anyURI .
+
+
+###  http://purl.obolibrary.org/obo/BFO_0000002
+<http://purl.obolibrary.org/obo/BFO_0000002> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000001> ;
+                                             owl:disjointWith <http://purl.obolibrary.org/obo/BFO_0000003> ;
+                                             rdfs:comment "Entités persistant dans le temps : modèles, maladies, populations."@fr ;
+                                             rdfs:label "continuant" ;
+                                             rdfs:seeAlso "http://purl.obolibrary.org/obo/bfo.owl"^^xsd:anyURI .
+
+
+###  http://purl.obolibrary.org/obo/BFO_0000003
+<http://purl.obolibrary.org/obo/BFO_0000003> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000001> ;
+                                             rdfs:comment "BFO:0000003 - importé via MIREOT. Superclasse de tous les processus dans OntoSim-Epi."@fr ;
+                                             rdfs:label "occurrent"@en ;
+                                             rdfs:seeAlso "http://purl.obolibrary.org/obo/bfo.owl"^^xsd:anyURI .
+
+
+###  http://purl.obolibrary.org/obo/BFO_0000004
+<http://purl.obolibrary.org/obo/BFO_0000004> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000002> ;
+                                             rdfs:label "independent continuant"@en .
+
+
+###  http://purl.obolibrary.org/obo/BFO_0000008
+<http://purl.obolibrary.org/obo/BFO_0000008> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000003> ;
+                                             rdfs:label "temporal region" .
+
+
+###  http://purl.obolibrary.org/obo/BFO_0000015
+<http://purl.obolibrary.org/obo/BFO_0000015> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000003> ;
+                                             rdfs:comment "An occurrent that has temporal proper parts and for some time t, p s-depends_on some material entity at t."@en ,
+                                                          "SimulationWorkflow, RecompositionProcess, SimulationExecution, SemanticSearch"@en ;
+                                             rdfs:label "process"@en ;
+                                             rdfs:seeAlso "http://purl.obolibrary.org/obo/bfo.owl"^^xsd:anyURI .
+
+
+###  http://purl.obolibrary.org/obo/BFO_0000019
+<http://purl.obolibrary.org/obo/BFO_0000019> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000020> ;
+                                             rdfs:comment "Paramètres mesurables : β, γ, σ, δ, R0..."@fr ;
+                                             rdfs:label "quality"@en ;
+                                             rdfs:seeAlso "http://purl.obolibrary.org/obo/bfo.owl"^^xsd:anyURI .
+
+
+###  http://purl.obolibrary.org/obo/BFO_0000020
+<http://purl.obolibrary.org/obo/BFO_0000020> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000002> ;
+                                             rdfs:label "specifically dependent continuant"@en ;
+                                             rdfs:seeAlso "http://purl.obolibrary.org/obo/bfo.owl"^^xsd:anyURI .
+
+
+###  http://purl.obolibrary.org/obo/BFO_0000031
+<http://purl.obolibrary.org/obo/BFO_0000031> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000002> ;
+                                             rdfs:comment "Artefacts informationnels pouvant être copiés."@fr ;
+                                             rdfs:label "Artefacts informationnels"@fr ,
+                                                        "generically dependent continuant"@en ;
+                                             rdfs:seeAlso "http://purl.obolibrary.org/obo/bfo.owl"^^xsd:anyURI .
+
+
+###  http://purl.obolibrary.org/obo/BFO_0000035
+<http://purl.obolibrary.org/obo/BFO_0000035> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000003> ;
+                                             rdfs:label "process boundary"@en .
+
+
+###  http://purl.obolibrary.org/obo/BFO_0000040
+<http://purl.obolibrary.org/obo/BFO_0000040> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000004> ;
+                                             rdfs:label "material entity"@en .
+
+
+###  http://purl.obolibrary.org/obo/BFO_0000141
+<http://purl.obolibrary.org/obo/BFO_0000141> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000004> ;
+                                             rdfs:label "immaterial entity"@en .
+
+
+###  http://purl.obolibrary.org/obo/IAO_0000030
+<http://purl.obolibrary.org/obo/IAO_0000030> rdf:type owl:Class ;
+                                             rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000031> ;
+                                             rdfs:comment "A generically dependent continuant that is about some thing."@en ,
+                                                          "Superclasse directe de epi:SimulationKnowledgeArtifact (Couche 2). Regroupe tous les artefacts informationnels de l'ontologie"@fr ;
+                                             rdfs:label "information content entity"@en ;
+                                             rdfs:seeAlso "http://purl.obolibrary.org/obo/iao.owl"^^xsd:anyURI .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
