@@ -1,0 +1,1028 @@
+@prefix : <http://www.ontosim-epi.org/ontology#> .
+@prefix epi: <http://www.ontosim-epi.org/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://www.ontosim-epi.org/ontology#> .
+
+<http://www.ontosim-epi.org/ontology/layer2> rdf:type owl:Ontology ;
+                                              owl:versionIRI <http://www.ontosim-epi.org/ontology/layer2/1.0> ;
+                                              owl:imports <http://www.ontosim-epi.org/ontology/layer1> ;
+                                              dcterms:created 2026 ;
+                                              dcterms:creator "Paul Cheikh Anta DIOUF" ;
+                                              rdfs:comment "Couche 2 de OntoSim-Epi. Répond à la question : Comment modéliser ? Concepts génériques de simulation indépendants du domaine épidémiologique : modèles, structure, paramètres, scénarios, composition, compatibilité, synchronisation."@fr ;
+                                              rdfs:label "OntoSim-Epi Couche 2 - Ontologie de modélisation et simulation"@fr ,
+                                                         "OntoSim-Epi Layer 2 - Simulation Ontology"@en ;
+                                              owl:versionInfo "\"1.0\"" .
+
+#################################################################
+#    Datatypes
+#################################################################
+
+###  http://www.w3.org/2001/XMLSchema#date
+xsd:date rdf:type rdfs:Datatype .
+
+
+###  http://www.w3.org/2001/XMLSchema#duration
+xsd:duration rdf:type rdfs:Datatype .
+
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.ontosim-epi.org/ontology#combinesModel
+epi:combinesModel rdf:type owl:ObjectProperty ;
+                  rdfs:domain epi:ModelComposition ;
+                  rdfs:range epi:SimulationModel .
+
+
+###  http://www.ontosim-epi.org/ontology#coupledWith
+epi:coupledWith rdf:type owl:ObjectProperty ;
+                rdfs:domain epi:SimulationModel ;
+                rdfs:range epi:SimulationModel .
+
+
+###  http://www.ontosim-epi.org/ontology#derivedFrom
+epi:derivedFrom rdf:type owl:ObjectProperty ,
+                         owl:AsymmetricProperty ,
+                         owl:IrreflexiveProperty ;
+                rdfs:domain epi:SimulationModel ;
+                rdfs:range epi:SimulationModel .
+
+
+###  http://www.ontosim-epi.org/ontology#executesModel
+epi:executesModel rdf:type owl:ObjectProperty ;
+                  rdfs:domain epi:SimulationExecution ;
+                  rdfs:range epi:AbstractModelStructure .
+
+
+###  http://www.ontosim-epi.org/ontology#feedsInto
+epi:feedsInto rdf:type owl:ObjectProperty ;
+              rdfs:domain epi:OutputComponent ;
+              rdfs:range epi:InputComponent .
+
+
+###  http://www.ontosim-epi.org/ontology#generatedBy
+epi:generatedBy rdf:type owl:ObjectProperty ;
+                rdfs:domain epi:SimulationModel ;
+                rdfs:range epi:AutomaticGenerator .
+
+
+###  http://www.ontosim-epi.org/ontology#hasAuthor
+epi:hasAuthor rdf:type owl:ObjectProperty ;
+              rdfs:domain epi:SimulationModel ;
+              rdfs:range epi:Researcher .
+
+
+###  http://www.ontosim-epi.org/ontology#hasCompatibilityConstraint
+epi:hasCompatibilityConstraint rdf:type owl:ObjectProperty ;
+                               rdfs:domain epi:ModelComposition ;
+                               rdfs:range epi:CompatibilityConstraint .
+
+
+###  http://www.ontosim-epi.org/ontology#hasComponent
+epi:hasComponent rdf:type owl:ObjectProperty ;
+                 rdfs:domain epi:ModelStructureKnowledge ;
+                 rdfs:range epi:ModelComponent .
+
+
+###  http://www.ontosim-epi.org/ontology#hasComposition
+epi:hasComposition rdf:type owl:ObjectProperty ;
+                   rdfs:domain epi:SimulationModel ;
+                   rdfs:range epi:ModelComposition .
+
+
+###  http://www.ontosim-epi.org/ontology#hasCouplingType
+epi:hasCouplingType rdf:type owl:ObjectProperty ;
+                    rdfs:domain epi:ModelStructureKnowledge ;
+                    rdfs:range epi:CouplingType .
+
+
+###  http://www.ontosim-epi.org/ontology#hasGranularityLevel
+epi:hasGranularityLevel rdf:type owl:ObjectProperty ;
+                        rdfs:domain epi:ModelStructureKnowledge ;
+                        rdfs:range epi:GranularityLevel .
+
+
+###  http://www.ontosim-epi.org/ontology#hasInputComponent
+epi:hasInputComponent rdf:type owl:ObjectProperty ;
+                      rdfs:domain epi:SimulationModel ;
+                      rdfs:range epi:InputComponent .
+
+
+###  http://www.ontosim-epi.org/ontology#hasInstitution
+epi:hasInstitution rdf:type owl:ObjectProperty ;
+                   rdfs:domain epi:Researcher ;
+                   rdfs:range epi:Institution .
+
+
+###  http://www.ontosim-epi.org/ontology#hasModelType
+epi:hasModelType rdf:type owl:ObjectProperty ;
+                 rdfs:domain epi:SimulationModel ;
+                 rdfs:range epi:ModelType .
+
+
+###  http://www.ontosim-epi.org/ontology#hasOutputComponent
+epi:hasOutputComponent rdf:type owl:ObjectProperty ;
+                       rdfs:domain epi:SimulationModel ;
+                       rdfs:range epi:OutputComponent .
+
+
+###  http://www.ontosim-epi.org/ontology#hasParadigm
+epi:hasParadigm rdf:type owl:ObjectProperty ;
+                rdfs:domain epi:ModelStructureKnowledge ;
+                rdfs:range epi:ParadigmType .
+
+
+###  http://www.ontosim-epi.org/ontology#hasParameter
+epi:hasParameter rdf:type owl:ObjectProperty ;
+                 rdfs:domain epi:SimulationModel ;
+                 rdfs:range epi:ModelParameter .
+
+
+###  http://www.ontosim-epi.org/ontology#hasProvenance
+epi:hasProvenance rdf:type owl:ObjectProperty ;
+                  rdfs:domain epi:SimulationResult ;
+                  rdfs:range epi:ProvenanceStore .
+
+
+###  http://www.ontosim-epi.org/ontology#hasSpatialType
+epi:hasSpatialType rdf:type owl:ObjectProperty ;
+                   rdfs:domain epi:ModelStructureKnowledge ;
+                   rdfs:range epi:SpatialType .
+
+
+###  http://www.ontosim-epi.org/ontology#hasStructureKnowledge
+epi:hasStructureKnowledge rdf:type owl:ObjectProperty ;
+                          rdfs:domain epi:SimulationModel ;
+                          rdfs:range epi:ModelStructureKnowledge .
+
+
+###  http://www.ontosim-epi.org/ontology#hasSynchronizationRule
+epi:hasSynchronizationRule rdf:type owl:ObjectProperty ;
+                           rdfs:domain epi:ModelComposition ;
+                           rdfs:range epi:SynchronizationRule .
+
+
+###  http://www.ontosim-epi.org/ontology#hasTemporalType
+epi:hasTemporalType rdf:type owl:ObjectProperty ;
+                    rdfs:domain epi:ModelStructureKnowledge ;
+                    rdfs:range epi:TemporalType .
+
+
+###  http://www.ontosim-epi.org/ontology#hasValidationMethod
+epi:hasValidationMethod rdf:type owl:ObjectProperty ;
+                        rdfs:domain epi:SimulationModel ;
+                        rdfs:range epi:ValidationMethod .
+
+
+###  http://www.ontosim-epi.org/ontology#mapsSourceParameter
+epi:mapsSourceParameter rdf:type owl:ObjectProperty ;
+                        rdfs:domain epi:ParameterMapping ;
+                        rdfs:range epi:ModelParameter .
+
+
+###  http://www.ontosim-epi.org/ontology#mapsTargetParameter
+epi:mapsTargetParameter rdf:type owl:ObjectProperty ;
+                        rdfs:domain epi:ParameterMapping ;
+                        rdfs:range epi:ModelParameter .
+
+
+###  http://www.ontosim-epi.org/ontology#producesResult
+epi:producesResult rdf:type owl:ObjectProperty ;
+                   rdfs:domain epi:SimulationExecution ;
+                   rdfs:range epi:SimulationResult .
+
+
+###  http://www.ontosim-epi.org/ontology#representedAs
+epi:representedAs rdf:type owl:ObjectProperty ;
+                  rdfs:domain epi:SimulationModel ;
+                  rdfs:range epi:AbstractModelStructure .
+
+
+###  http://www.ontosim-epi.org/ontology#usesScenario
+epi:usesScenario rdf:type owl:ObjectProperty ;
+                 rdfs:domain epi:SimulationModel ;
+                 rdfs:range epi:SimulationScenario .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.ontosim-epi.org/ontology#creationDate
+epi:creationDate rdf:type owl:DatatypeProperty ;
+                 rdfs:domain epi:SimulationModel ;
+                 rdfs:range xsd:date .
+
+
+###  http://www.ontosim-epi.org/ontology#defaultValue
+epi:defaultValue rdf:type owl:DatatypeProperty ;
+                 rdfs:domain epi:ModelParameter ;
+                 rdfs:range xsd:double .
+
+
+###  http://www.ontosim-epi.org/ontology#email
+epi:email rdf:type owl:DatatypeProperty ;
+          rdfs:domain epi:Researcher ;
+          rdfs:range xsd:string .
+
+
+###  http://www.ontosim-epi.org/ontology#endDate
+epi:endDate rdf:type owl:DatatypeProperty ;
+            rdfs:domain epi:TemporalScenario ;
+            rdfs:range xsd:dateTime .
+
+
+###  http://www.ontosim-epi.org/ontology#executionStatus
+epi:executionStatus rdf:type owl:DatatypeProperty ;
+                    rdfs:domain epi:SimulationExecution ;
+                    rdfs:range xsd:string .
+
+
+###  http://www.ontosim-epi.org/ontology#fullName
+epi:fullName rdf:type owl:DatatypeProperty ;
+             rdfs:domain epi:Researcher ;
+             rdfs:range xsd:string .
+
+
+###  http://www.ontosim-epi.org/ontology#mappingFormula
+epi:mappingFormula rdf:type owl:DatatypeProperty ;
+                   rdfs:domain epi:ParameterMapping ;
+                   rdfs:range xsd:string .
+
+
+###  http://www.ontosim-epi.org/ontology#modelDescription
+epi:modelDescription rdf:type owl:DatatypeProperty ;
+                     rdfs:domain epi:SimulationModel ;
+                     rdfs:range xsd:string .
+
+
+###  http://www.ontosim-epi.org/ontology#modelName
+epi:modelName rdf:type owl:DatatypeProperty ;
+              rdfs:domain epi:SimulationModel ;
+              rdfs:range xsd:string .
+
+
+###  http://www.ontosim-epi.org/ontology#modelVersion
+epi:modelVersion rdf:type owl:DatatypeProperty ;
+                 rdfs:domain epi:SimulationModel ;
+                 rdfs:range xsd:string .
+
+
+###  http://www.ontosim-epi.org/ontology#numberOfRuns
+epi:numberOfRuns rdf:type owl:DatatypeProperty ;
+                 rdfs:domain epi:SimulationExecution ;
+                 rdfs:range xsd:integer .
+
+
+###  http://www.ontosim-epi.org/ontology#orcid
+epi:orcid rdf:type owl:DatatypeProperty ;
+          rdfs:domain epi:Researcher ;
+          rdfs:range xsd:string .
+
+
+###  http://www.ontosim-epi.org/ontology#parameterName
+epi:parameterName rdf:type owl:DatatypeProperty ;
+                  rdfs:domain epi:ModelParameter ;
+                  rdfs:range xsd:string .
+
+
+###  http://www.ontosim-epi.org/ontology#parameterUnit
+epi:parameterUnit rdf:type owl:DatatypeProperty ;
+                  rdfs:domain epi:ModelParameter ;
+                  rdfs:range xsd:string .
+
+
+###  http://www.ontosim-epi.org/ontology#parameterValue
+epi:parameterValue rdf:type owl:DatatypeProperty ;
+                   rdfs:domain epi:ModelParameter ;
+                   rdfs:range xsd:double .
+
+
+###  http://www.ontosim-epi.org/ontology#randomSeed
+epi:randomSeed rdf:type owl:DatatypeProperty ;
+               rdfs:domain epi:SimulationExecution ;
+               rdfs:range xsd:integer .
+
+
+###  http://www.ontosim-epi.org/ontology#scenarioDuration
+epi:scenarioDuration rdf:type owl:DatatypeProperty ;
+                     rdfs:domain epi:SimulationScenario ;
+                     rdfs:range xsd:duration .
+
+
+###  http://www.ontosim-epi.org/ontology#simulationDuration
+epi:simulationDuration rdf:type owl:DatatypeProperty ;
+                       rdfs:domain epi:ModelStructureKnowledge ;
+                       rdfs:range xsd:duration .
+
+
+###  http://www.ontosim-epi.org/ontology#simulatorName
+epi:simulatorName rdf:type owl:DatatypeProperty ;
+                  rdfs:domain epi:SimulationExecution ;
+                  rdfs:range xsd:string .
+
+
+###  http://www.ontosim-epi.org/ontology#simulatorVersion
+epi:simulatorVersion rdf:type owl:DatatypeProperty ;
+                     rdfs:domain epi:SimulationExecution ;
+                     rdfs:range xsd:string .
+
+
+###  http://www.ontosim-epi.org/ontology#startDate
+epi:startDate rdf:type owl:DatatypeProperty ;
+              rdfs:domain epi:TemporalScenario ;
+              rdfs:range xsd:dateTime .
+
+
+###  http://www.ontosim-epi.org/ontology#syncInterface
+epi:syncInterface rdf:type owl:DatatypeProperty ;
+                  rdfs:domain epi:SynchronizationRule ;
+                  rdfs:range xsd:string .
+
+
+###  http://www.ontosim-epi.org/ontology#timeStep
+epi:timeStep rdf:type owl:DatatypeProperty ;
+             rdfs:domain epi:ModelStructureKnowledge ;
+             rdfs:range xsd:duration .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.ontosim-epi.org/ontology#AbstractBehavior
+epi:AbstractBehavior rdf:type owl:Class ;
+                     rdfs:subClassOf epi:AbstractModelStructure ;
+                     rdfs:label "AbstractBehavior"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#AbstractEntity
+epi:AbstractEntity rdf:type owl:Class ;
+                   rdfs:subClassOf epi:AbstractModelStructure ;
+                   rdfs:label "AbstractEntity"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#AbstractEnvironment
+epi:AbstractEnvironment rdf:type owl:Class ;
+                        rdfs:subClassOf epi:AbstractModelStructure ;
+                        rdfs:label "AbstractEnvironment"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#AbstractModelStructure
+epi:AbstractModelStructure rdf:type owl:Class ;
+                           rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                           rdfs:comment "Internal abstract representation layer introduced for model decomposition and recomposition."@en ,
+                                        "Représentation abstraite intermédiaire d'un modèle. Générée par OntoSim-Epi pour être traduite vers GAMA, FRED ou NetLogo."@fr ;
+                           rdfs:label "AbstractModelStructure"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#AbstractParameter
+epi:AbstractParameter rdf:type owl:Class ;
+                      rdfs:subClassOf epi:AbstractModelStructure ;
+                      rdfs:label "AbstractParameter"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#AbstractState
+epi:AbstractState rdf:type owl:Class ;
+                  rdfs:subClassOf epi:AbstractModelStructure ;
+                  rdfs:label "AbstractState"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#AbstractTransition
+epi:AbstractTransition rdf:type owl:Class ;
+                       rdfs:subClassOf epi:AbstractModelStructure ;
+                       rdfs:label "AbstractTransition"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#Author
+epi:Author rdf:type owl:Class ;
+           rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+           rdfs:comment "Classe abstraite, tout créateur d'un modèle, humain ou automatique."@fr ;
+           rdfs:label "Author"@en ;
+           rdfs:seeAlso "<http://www.w3.org/ns/prov#Agent>" .
+
+
+###  http://www.ontosim-epi.org/ontology#AutomaticGenerator
+epi:AutomaticGenerator rdf:type owl:Class ;
+                       rdfs:subClassOf epi:Author ;
+                       rdfs:comment "Système automatique. ex: OntoSim-Epi RecompositionEngine."@fr ;
+                       rdfs:label "AutomaticGenerator"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#BidirectionalSynchronization
+epi:BidirectionalSynchronization rdf:type owl:Class ;
+                                 rdfs:subClassOf epi:SynchronizationRule ;
+                                 rdfs:comment "Synchronisation bidirectionnelle. couplage fort SEIR ↔ ABM."@fr ;
+                                 rdfs:label "BidirectionalSynchronization"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#CompatibilityConstraint
+epi:CompatibilityConstraint rdf:type owl:Class ;
+                            rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                            rdfs:comment "Contrainte de compatibilité entre modèles avant composition ou recombinaison."@fr ;
+                            rdfs:label "CompatibilityConstraint"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#ConstraintParameter
+epi:ConstraintParameter rdf:type owl:Class ;
+                        rdfs:subClassOf epi:ModelParameter ;
+                        rdfs:comment "Paramètre définissant une contrainte sur le modèle."@fr ;
+                        rdfs:label "ConstraintParameter"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#CouplingType
+epi:CouplingType rdf:type owl:Class ;
+                 rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                 rdfs:comment "Coupling classification introduced in OntoSim-Epi for hybrid model recomposition."@en ,
+                              "elle définit le niveau ou l'intensité de l'interdépendance (le couplage) entre deux modèles."@fr ;
+                 rdfs:label "CouplingType"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#DiseaseScenario
+epi:DiseaseScenario rdf:type owl:Class ;
+                    rdfs:subClassOf epi:SimulationScenario ;
+                    rdfs:comment "Scénario centré sur la dynamique de la maladie."@fr ;
+                    rdfs:label "DiseaseScenario"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#DynamicParameter
+epi:DynamicParameter rdf:type owl:Class ;
+                     rdfs:subClassOf epi:ModelParameter ;
+                     rdfs:comment "Paramètre variant en fonction du temps. ex: β(t)."@fr ;
+                     rdfs:label "DynamicParameter"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#EnvironmentComponent
+epi:EnvironmentComponent rdf:type owl:Class ;
+                         rdfs:subClassOf epi:ModelComponent ;
+                         rdfs:comment "Facteurs externes ou contextuels influençant le système (ex. météo, relief, infrastructure)."@fr ;
+                         rdfs:label "EnvironmentComponent"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#ExperimentalScenario
+epi:ExperimentalScenario rdf:type owl:Class ;
+                         rdfs:subClassOf epi:SimulationScenario ;
+                         rdfs:comment "Scénario de type expérimental, comparaison de plusieurs configurations."@fr ;
+                         rdfs:label "ExperimentalScenario"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#GranularityLevel
+epi:GranularityLevel rdf:type owl:Class ;
+                     rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                     rdfs:comment "elle définit l'échelle ou le niveau de résolution (la granularité) auquel les données sont collectées, analysées ou agrégées."@fr ;
+                     rdfs:label "GranularityLevel"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#HierarchicalComposition
+epi:HierarchicalComposition rdf:type owl:Class ;
+                            rdfs:subClassOf epi:ModelComposition ;
+                            rdfs:comment "Composition hiérarchique : un modèle macro contient des sous-modèles micro."@fr ;
+                            rdfs:label "HierarchicalComposition"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#HybridComposition
+epi:HybridComposition rdf:type owl:Class ;
+                      rdfs:subClassOf epi:ModelComposition ;
+                      rdfs:comment "Composition hybride : combine paradigmes différents (ex: SEIR + ABM)."@fr ;
+                      rdfs:label "HybridComposition"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#InitialCondition
+epi:InitialCondition rdf:type owl:Class ;
+                     rdfs:subClassOf epi:ModelParameter ;
+                     rdfs:comment "Valeur initiale d'une variable d'état. ex: S(0), I(0)."@fr ;
+                     rdfs:label "InitialCondition"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#InputComponent
+epi:InputComponent rdf:type owl:Class ;
+                   rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                   rdfs:comment "Composant d'entrée d'un modèle de simulation."@fr ;
+                   rdfs:label "InputComponent"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#InputSynchronization
+epi:InputSynchronization rdf:type owl:Class ;
+                         rdfs:subClassOf epi:SynchronizationRule ;
+                         rdfs:comment "Synchronisation à l'entrée d'un modèle."@fr ;
+                         rdfs:label "InputSynchronization"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#Institution
+epi:Institution rdf:type owl:Class ;
+                rdfs:subClassOf epi:Author ;
+                rdfs:comment "Organisation institutionnelle auteure d'un modèle."@fr ;
+                rdfs:label "Institution"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#InterventionScenario
+epi:InterventionScenario rdf:type owl:Class ;
+                         rdfs:subClassOf epi:SimulationScenario ;
+                         rdfs:comment "Scénario incluant des interventions sanitaires. Spécialisé en Couche 4 (ExecutionKnowledge)"@fr ;
+                         rdfs:label "InterventionScenario"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#MandatoryParameter
+epi:MandatoryParameter rdf:type owl:Class ;
+                       rdfs:subClassOf epi:ModelParameter ;
+                       rdfs:comment "Paramètre obligatoire, le modèle ne peut pas s'exécuter sans lui."@fr ;
+                       rdfs:label "MandatoryParameter"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#ModelComponent
+epi:ModelComponent rdf:type owl:Class ;
+                   rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                   rdfs:comment "Elle sert de structure pivot pour définir les différents blocs de construction, éléments structurels ou modules qui composent un modèle mathématique ou informatique."@fr ;
+                   rdfs:label "ModelComponent"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#ModelComposition
+epi:ModelComposition rdf:type owl:Class ;
+                     rdfs:subClassOf epi:SimulationKnowledgeArtifact ,
+                                     [ rdf:type owl:Restriction ;
+                                       owl:onProperty epi:combinesModel ;
+                                       owl:minQualifiedCardinality "2"^^xsd:nonNegativeInteger ;
+                                       owl:onClass epi:SimulationModel
+                                     ] ;
+                     rdfs:comment "Représente la combinaison de plusieurs modèles de simulation en un modèle composite. Lié à Brunet et al. 2006 (merge operator)."@fr ;
+                     rdfs:label "ModelComposition"@fr .
+
+
+###  http://www.ontosim-epi.org/ontology#ModelParameter
+epi:ModelParameter rdf:type owl:Class ;
+                   rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                   rdfs:comment "Paramètre générique d'un modèle de simulation. Spécialisé en Couche 3B (β, γ, σ) et Couche 3A (contactRate, moveRate)."@fr ;
+                   rdfs:label "ModelParameter"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#ModelProvenance
+epi:ModelProvenance rdf:type owl:Class ;
+                    rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                    rdfs:comment "Provenance d'un modèle spécifique : sources, transformations, ajustements."@fr ;
+                    rdfs:label "ModelProvenance"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#ModelStructureKnowledge
+epi:ModelStructureKnowledge rdf:type owl:Class ;
+                            rdfs:subClassOf epi:SimulationKnowledgeArtifact ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty epi:hasComponent ;
+                                              owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass epi:ModelComponent
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty epi:hasGranularityLevel ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass epi:GranularityLevel
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty epi:hasParadigm ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass epi:ParadigmType
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty epi:hasSpatialType ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass epi:SpatialType
+                                            ] ,
+                                            [ rdf:type owl:Restriction ;
+                                              owl:onProperty epi:hasTemporalType ;
+                                              owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                              owl:onClass epi:TemporalType
+                                            ] ;
+                            rdfs:comment "Connaissances sur la structure d'un modèle : paradigme, espace, granularité, temps, couplage et composants."@fr ;
+                            rdfs:label "ModelStructureKnowledge"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#ModelType
+epi:ModelType rdf:type owl:Class ;
+              rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+              rdfs:comment "Type de Modele"@fr ;
+              rdfs:label "ModelType"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#OneToManyMapping
+epi:OneToManyMapping rdf:type owl:Class ;
+                     rdfs:subClassOf epi:ParameterMapping ;
+                     rdfs:comment "Un paramètre source mappé vers plusieurs paramètres cibles."@fr ;
+                     rdfs:label "OneToManyMapping"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#OneToOneMapping
+epi:OneToOneMapping rdf:type owl:Class ;
+                    rdfs:subClassOf epi:ParameterMapping ;
+                    rdfs:comment "Correspondance directe 1-1 entre paramètres."@fr ;
+                    rdfs:label "OneToOneMapping"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#OptionalParameter
+epi:OptionalParameter rdf:type owl:Class ;
+                      rdfs:subClassOf epi:ModelParameter ;
+                      rdfs:comment "Paramètre optionnel avec valeur par défaut."@fr ;
+                      rdfs:label "OptionalParameter"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#OutputComponent
+epi:OutputComponent rdf:type owl:Class ;
+                    rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                    rdfs:comment "Composant de sortie d'un modèle. Peut alimenter l'entrée d'un autre modèle via feedsInto."@fr ;
+                    rdfs:label "OutputComponent"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#OutputSynchronization
+epi:OutputSynchronization rdf:type owl:Class ;
+                          rdfs:subClassOf epi:SynchronizationRule ;
+                          rdfs:comment "Synchronisation à la sortie d'un modèle."@fr ;
+                          rdfs:label "OutputSynchronization"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#ParadigmType
+epi:ParadigmType rdf:type owl:Class ;
+                 rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                 rdfs:comment "Type de paradigme"@fr ;
+                 rdfs:label "ParadigmType"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#ParallelComposition
+epi:ParallelComposition rdf:type owl:Class ;
+                        rdfs:subClassOf epi:ModelComposition ;
+                        rdfs:comment "Composition parallèle : modèles s'exécutent simultanément et partagent des données."@fr ;
+                        rdfs:label "ParallelComposition"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#ParameterCompatibility
+epi:ParameterCompatibility rdf:type owl:Class ;
+                           rdfs:subClassOf epi:CompatibilityConstraint ;
+                           rdfs:comment "Les paramètres peuvent être mappés entre les modèles."@fr ;
+                           rdfs:label "ParameterCompatibility"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#ParameterComponent
+epi:ParameterComponent rdf:type owl:Class ;
+                       rdfs:subClassOf epi:ModelComponent ;
+                       rdfs:comment "Valeurs constantes ou variables exogènes qui configurent le modèle (ex. taux de mortalité)."@fr ;
+                       rdfs:label "ParameterComponent"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#ParameterMapping
+epi:ParameterMapping rdf:type owl:Class ;
+                     rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                     rdfs:comment """Correspondance entre paramètres de deux modèles différents. 
+Ex: β_global peut donner tau_city = (β × N_total) / N_city."""@fr ;
+                     rdfs:label "ParameterMapping"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#PopulationScenario
+epi:PopulationScenario rdf:type owl:Class ;
+                       rdfs:subClassOf epi:SimulationScenario ;
+                       rdfs:comment "Scénario centré sur la structure de la population."@fr ;
+                       rdfs:label "PopulationScenario"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#ProvenanceStore
+epi:ProvenanceStore rdf:type owl:Class ;
+                    rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                    rdfs:comment "Stockage global des provenances. Permet de retrouver et reproduire toute simulation."@fr ;
+                    rdfs:label "ProvenanceStore"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#Researcher
+epi:Researcher rdf:type owl:Class ;
+               rdfs:subClassOf epi:Author ;
+               rdfs:comment "Aligné avec foaf:Person et prov:Person"@fr ,
+                            "Chercheur humain identifié par nom, orcid, email."@fr ;
+               rdfs:label "Researcher"@en ;
+               rdfs:seeAlso "<https://www.w3.org/TR/prov-o/> , <http://xmlns.com/foaf/spec/> ." .
+
+
+###  http://www.ontosim-epi.org/ontology#RuleComponent
+epi:RuleComponent rdf:type owl:Class ;
+                  rdfs:subClassOf epi:ModelComponent ;
+                  rdfs:comment "Conditions logiques, algorithmes ou contraintes qui dictent le comportement du modèle."@fr ;
+                  rdfs:label "RuleComponent"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#SemanticCompatibility
+epi:SemanticCompatibility rdf:type owl:Class ;
+                          rdfs:subClassOf epi:CompatibilityConstraint ;
+                          rdfs:comment "Les concepts manipulés sont sémantiquement alignés."@fr ;
+                          rdfs:label "SemanticCompatibility"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#SequentialComposition
+epi:SequentialComposition rdf:type owl:Class ;
+                          rdfs:subClassOf epi:ModelComposition ;
+                          rdfs:comment "Composition séquentielle : modèle A produit des sorties utilisées par modèle B."@fr ;
+                          rdfs:label "SequentialComposition"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#SimulationExecution
+epi:SimulationExecution rdf:type owl:Class ;
+                        rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000015> ;
+                        rdfs:comment "Processus d'exécution réelle d'un modèle sur un simulateur externe (GAMA, FRED, NetLogo). Sous BFO:0000015."@fr ;
+                        rdfs:label "SimulationExecution"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#SimulationKnowledgeArtifact
+epi:SimulationKnowledgeArtifact rdf:type owl:Class ;
+                                rdfs:subClassOf <http://purl.obolibrary.org/obo/IAO_0000030> ;
+                                rdfs:comment "Classe abstraite intermédiaire sous IAO:0000030. Regroupe tous les artefacts informationnels de OntoSim-Epi. Définie en Couche 2."@fr ;
+                                rdfs:label "SimulationKnowledgeArtifact"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#SimulationModel
+epi:SimulationModel rdf:type owl:Class ;
+                    rdfs:subClassOf epi:SimulationKnowledgeArtifact ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty epi:hasParameter ;
+                                      owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onClass epi:ModelParameter
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty epi:hasValidationMethod ;
+                                      owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onClass epi:ValidationMethod
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty epi:usesScenario ;
+                                      owl:minQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onClass epi:SimulationScenario
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty epi:hasModelType ;
+                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onClass epi:ModelType
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty epi:hasStructureKnowledge ;
+                                      owl:qualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onClass epi:ModelStructureKnowledge
+                                    ] ,
+                                    [ rdf:type owl:Restriction ;
+                                      owl:onProperty epi:representedAs ;
+                                      owl:maxQualifiedCardinality "1"^^xsd:nonNegativeInteger ;
+                                      owl:onClass epi:AbstractModelStructure
+                                    ] ;
+                    rdfs:comment "Représentation sémantique formelle d'un modèle de simulation. Classe générique indépendante du domaine épidémiologique. Spécialisée en Couches 3A, 3B et 4."@fr ;
+                    rdfs:label "Modèle de simulation"@fr ,
+                               "SimulationModel"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#SimulationObservation
+epi:SimulationObservation rdf:type owl:Class ;
+                          rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                          rdfs:comment "Observation collectée pendant la simulation. Contribue à la reproductibilité."@fr ;
+                          rdfs:label "SimulationObservation"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#SimulationResult
+epi:SimulationResult rdf:type owl:Class ;
+                     rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                     rdfs:comment "Données produites par l'exécution d'une simulation. Annotées sémantiquement."@fr ;
+                     rdfs:label "SimulationResult"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#SimulationScenario
+epi:SimulationScenario rdf:type owl:Class ;
+                       rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                       rdfs:comment "Ensemble des conditions définissant une expérience de simulation."@fr ;
+                       rdfs:label "SimulationScenario"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#SpatialCompatibility
+epi:SpatialCompatibility rdf:type owl:Class ;
+                         rdfs:subClassOf epi:CompatibilityConstraint ;
+                         rdfs:comment "Les résolutions spatiales sont compatibles."@fr ;
+                         rdfs:label "SpatialCompatibility"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#SpatialScenario
+epi:SpatialScenario rdf:type owl:Class ;
+                    rdfs:subClassOf epi:SimulationScenario ;
+                    rdfs:comment "Scénario incluant une dimension géographique."@fr ;
+                    rdfs:label "SpatialScenario"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#SpatialType
+epi:SpatialType rdf:type owl:Class ;
+                rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                rdfs:comment "les différents types de structures, formats ou représentations spatiales utilisés pour modéliser les données au sein du système."@fr ;
+                rdfs:label "SpatialType"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#StateComponent
+epi:StateComponent rdf:type owl:Class ;
+                   rdfs:subClassOf epi:ModelComponent ;
+                   rdfs:comment "Variables d'état décrivant la condition du système à un instant (ex. compartiments S, I, R)."@fr ;
+                   rdfs:label "StateComponent"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#StaticParameter
+epi:StaticParameter rdf:type owl:Class ;
+                    rdfs:subClassOf epi:ModelParameter ;
+                    rdfs:comment "Paramètre constant pendant toute la simulation."@fr ;
+                    rdfs:label "StaticParameter"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#StructuralCompatibility
+epi:StructuralCompatibility rdf:type owl:Class ;
+                            rdfs:subClassOf epi:CompatibilityConstraint ;
+                            rdfs:comment "Les structures des modèles sont compatibles."@fr ;
+                            rdfs:label "StructuralCompatibility"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#SynchronizationRule
+epi:SynchronizationRule rdf:type owl:Class ;
+                        rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                        rdfs:comment "Règle définissant comment les données sont échangées entre modèles couplés."@fr ;
+                        rdfs:label "SynchronizationRule"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#TemporalCompatibility
+epi:TemporalCompatibility rdf:type owl:Class ;
+                          rdfs:subClassOf epi:CompatibilityConstraint ;
+                          rdfs:comment "Les résolutions temporelles sont compatibles."@fr ;
+                          rdfs:label "TemporalCompatibility"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#TemporalScenario
+epi:TemporalScenario rdf:type owl:Class ;
+                     rdfs:subClassOf epi:SimulationScenario ;
+                     rdfs:comment "Scénario avec une période temporelle définie."@fr ;
+                     rdfs:label "TemporalScenario"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#TemporalType
+epi:TemporalType rdf:type owl:Class ;
+                 rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                 rdfs:comment "elle définit la nature de la représentation du temps pour les données ou les processus modélisés."@fr ;
+                 rdfs:label "TemporalType"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#TransformationMapping
+epi:TransformationMapping rdf:type owl:Class ;
+                          rdfs:subClassOf epi:ParameterMapping ;
+                          rdfs:comment "Correspondance avec transformation, formule mathématique appliquée."@fr ;
+                          rdfs:label "TransformationMapping"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#TransitionComponent
+epi:TransitionComponent rdf:type owl:Class ;
+                        rdfs:subClassOf epi:ModelComponent ;
+                        rdfs:comment "Processus ou flux régissant le passage d'un état à un autre (ex. taux d'infection)."@fr ;
+                        rdfs:label "TransitionComponent"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#ValidationMethod
+epi:ValidationMethod rdf:type owl:Class ;
+                     rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                     rdfs:comment "Méthode utilisée pour valider un modèle de simulation."@fr ;
+                     rdfs:label "ValidationMethod"@en .
+
+
+#################################################################
+#    Individuals
+#################################################################
+
+###  http://www.ontosim-epi.org/ontology#ADEQUACY
+epi:ADEQUACY rdf:type owl:NamedIndividual ,
+                      epi:ValidationMethod ;
+             rdfs:comment "Évaluation qualitative de la logique et des hypothèses du modèle."@fr ;
+             rdfs:label "Adequacy Validation"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#AGENT_BASED
+epi:AGENT_BASED rdf:type owl:NamedIndividual ,
+                         epi:ModelType .
+
+
+###  http://www.ontosim-epi.org/ontology#COMPARTMENTAL
+epi:COMPARTMENTAL rdf:type owl:NamedIndividual ,
+                           epi:ModelType .
+
+
+###  http://www.ontosim-epi.org/ontology#COMPLETE
+epi:COMPLETE rdf:type owl:NamedIndividual ,
+                      epi:CouplingType .
+
+
+###  http://www.ontosim-epi.org/ontology#CONTINUOUS
+epi:CONTINUOUS rdf:type owl:NamedIndividual ,
+                        epi:TemporalType .
+
+
+###  http://www.ontosim-epi.org/ontology#CROSS_MODEL
+epi:CROSS_MODEL rdf:type owl:NamedIndividual ,
+                         epi:ValidationMethod ;
+                rdfs:comment "Validation croisée avec un modèle établi (ex: comparer ABM avec modèle SIR)."@fr ;
+                rdfs:label "Cross-Model Validation"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#DETERMINISTIC
+epi:DETERMINISTIC rdf:type owl:NamedIndividual ,
+                           epi:ParadigmType .
+
+
+###  http://www.ontosim-epi.org/ontology#DISCRETE
+epi:DISCRETE rdf:type owl:NamedIndividual ,
+                      epi:TemporalType .
+
+
+###  http://www.ontosim-epi.org/ontology#DISCRETE_EVENT
+epi:DISCRETE_EVENT rdf:type owl:NamedIndividual ,
+                            epi:ModelType .
+
+
+###  http://www.ontosim-epi.org/ontology#GIS
+epi:GIS rdf:type owl:NamedIndividual ,
+                 epi:SpatialType .
+
+
+###  http://www.ontosim-epi.org/ontology#GRID
+epi:GRID rdf:type owl:NamedIndividual ,
+                  epi:SpatialType .
+
+
+###  http://www.ontosim-epi.org/ontology#GROUP
+epi:GROUP rdf:type owl:NamedIndividual ,
+                   epi:GranularityLevel .
+
+
+###  http://www.ontosim-epi.org/ontology#HISTORICAL_DATA
+epi:HISTORICAL_DATA rdf:type owl:NamedIndividual ,
+                             epi:ValidationMethod ;
+                    rdfs:comment "Validation par comparaison avec des données historiques d'épidémies réelles."@fr ;
+                    rdfs:label "Historical Data Validation"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#HYBRID
+epi:HYBRID rdf:type owl:NamedIndividual ,
+                    epi:ModelType .
+
+
+###  http://www.ontosim-epi.org/ontology#HYBRID_PARADIGM
+epi:HYBRID_PARADIGM rdf:type owl:NamedIndividual ,
+                             epi:ParadigmType .
+
+
+###  http://www.ontosim-epi.org/ontology#INDIVIDUAL
+epi:INDIVIDUAL rdf:type owl:NamedIndividual ,
+                        epi:GranularityLevel .
+
+
+###  http://www.ontosim-epi.org/ontology#MULTISCALE
+epi:MULTISCALE rdf:type owl:NamedIndividual ,
+                        epi:GranularityLevel .
+
+
+###  http://www.ontosim-epi.org/ontology#NETWORK
+epi:NETWORK rdf:type owl:NamedIndividual ,
+                     epi:SpatialType .
+
+
+###  http://www.ontosim-epi.org/ontology#NON_SPATIAL
+epi:NON_SPATIAL rdf:type owl:NamedIndividual ,
+                         epi:SpatialType .
+
+
+###  http://www.ontosim-epi.org/ontology#REGIONAL
+epi:REGIONAL rdf:type owl:NamedIndividual ,
+                      epi:GranularityLevel .
+
+
+###  http://www.ontosim-epi.org/ontology#STATISTICAL
+epi:STATISTICAL rdf:type owl:NamedIndividual ,
+                         epi:ValidationMethod ;
+                rdfs:comment "Validation par comparaison avec des statistiques supplémentaires de référence."@fr ;
+                rdfs:label "Statistical Validation"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#STOCHASTIC
+epi:STOCHASTIC rdf:type owl:NamedIndividual ,
+                        epi:ParadigmType .
+
+
+###  http://www.ontosim-epi.org/ontology#STRONG
+epi:STRONG rdf:type owl:NamedIndividual ,
+                    epi:CouplingType .
+
+
+###  http://www.ontosim-epi.org/ontology#SYSTEM_DYNAMICS
+epi:SYSTEM_DYNAMICS rdf:type owl:NamedIndividual ,
+                             epi:ModelType .
+
+
+###  http://www.ontosim-epi.org/ontology#WEAK
+epi:WEAK rdf:type owl:NamedIndividual ,
+                  epi:CouplingType .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
