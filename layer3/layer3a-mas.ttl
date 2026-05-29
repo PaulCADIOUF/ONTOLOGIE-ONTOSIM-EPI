@@ -1,0 +1,628 @@
+@prefix : <http://www.ontosim-epi.org/ontology#> .
+@prefix epi: <http://www.ontosim-epi.org/ontology#> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@base <http://www.ontosim-epi.org/ontology#> .
+
+<http://www.ontosim-epi.org/ontology/layer3a> rdf:type owl:Ontology ;
+                                               owl:versionIRI <http://www.ontosim-epi.org/ontology/layer3a/1.0> ;
+                                               owl:imports <http://www.ontosim-epi.org/ontology/layer2/1.0> ;
+                                               dcterms:created 2026 ;
+                                               dcterms:creator "Paul Cheikh Anta DIOUF" ;
+                                               rdfs:comment """Couche 3A de OntoSim-Epi. Répond à la question : Comment représenter les systèmes multi-agents ? Formalise les 4 composants ABM épidémiologiques : Disease Model, Society Model, Transport Model, Environment Model. 
+Source principale : Hunter et al. (2017). JASSS, DOI: 10.18564/jasss.3414."""@fr ;
+                                               rdfs:label "OntoSim-Epi Couche 3A - Ontologie des systèmes multi-agents"@fr ,
+                                                          "OntoSim-Epi Layer 3A - Multi-Agent Systems Ontology"@en ;
+                                               owl:versionInfo 0.001 .
+
+#################################################################
+#    Object Properties
+#################################################################
+
+###  http://www.ontosim-epi.org/ontology#belongsTo
+epi:belongsTo rdf:type owl:ObjectProperty ;
+              rdfs:domain epi:Agent ;
+              rdfs:range epi:SocialStructure ;
+              rdfs:comment "Lie un agent à sa structure sociale d'appartenance (ménage, école, lieu de travail, lieu de culte)."@fr ;
+              rdfs:label "belongsTo"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#causesTransition
+epi:causesTransition rdf:type owl:ObjectProperty ;
+                     rdfs:domain epi:Interaction ;
+                     rdfs:range epi:AgentState ;
+                     rdfs:comment "Une interaction peut provoquer une transition d'état chez un agent. Ex: un AirborneContact peut causer la transition vers Exposed."@fr ;
+                     rdfs:label "causesTransition"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#hasAgentState
+epi:hasAgentState rdf:type owl:ObjectProperty ;
+                  rdfs:domain epi:Agent ;
+                  rdfs:range epi:AgentState ;
+                  rdfs:comment "Lie un agent à son état épidémiologique courant."@fr ;
+                  rdfs:label "hasAgentState"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#hasBehavior
+epi:hasBehavior rdf:type owl:ObjectProperty ;
+                rdfs:domain epi:Agent ;
+                rdfs:range epi:Behavior ;
+                rdfs:comment "Lie un agent à ses règles de comportement."@fr ;
+                rdfs:label "hasBehavior"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#hasChild
+epi:hasChild rdf:type owl:ObjectProperty ;
+             owl:inverseOf epi:hasParent ;
+             rdfs:domain epi:HumanAgent ;
+             rdfs:range epi:HumanAgent ;
+             rdfs:comment "Lie un agent parent à son agent enfant. Relation familiale générique entre agents humains dans un ABM."@fr ;
+             rdfs:label "hasChild"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#hasContactPattern
+epi:hasContactPattern rdf:type owl:ObjectProperty ;
+                      rdfs:domain epi:Agent ;
+                      rdfs:range epi:ContactPattern ;
+                      rdfs:comment "Lie un agent à son patron de contact."@fr ;
+                      rdfs:label "hasContactPattern"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#hasEnvironmentModel
+epi:hasEnvironmentModel rdf:type owl:ObjectProperty ;
+                        rdfs:domain epi:SimulationModel ;
+                        rdfs:range epi:EnvironmentModel ;
+                        rdfs:comment "Lie un modèle de simulation à sa représentation de l'environnement spatial."@fr ;
+                        rdfs:label "hasEnvironmentModel"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#hasInteraction
+epi:hasInteraction rdf:type owl:ObjectProperty ;
+                   rdfs:domain epi:Agent ;
+                   rdfs:range epi:Interaction ;
+                   rdfs:comment "Lie un agent aux types d'interaction auxquels il participe."@fr ;
+                   rdfs:label "hasInteraction"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#hasMobilityPattern
+epi:hasMobilityPattern rdf:type owl:ObjectProperty ;
+                       rdfs:domain epi:Agent ;
+                       rdfs:range epi:MobilityPattern ;
+                       rdfs:comment "Lie un agent à son patron de mobilité."@fr ;
+                       rdfs:label "hasMobilityPattern"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#hasModelUsage
+epi:hasModelUsage rdf:type owl:ObjectProperty ;
+                  rdfs:domain epi:SimulationModel ;
+                  rdfs:range epi:ModelUsage ;
+                  rdfs:comment "Lie un modèle de simulation à son objectif d'utilisation (recherche, planification...)."@fr ;
+                  rdfs:label "hasModelUsage"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#hasParent
+epi:hasParent rdf:type owl:ObjectProperty ;
+              rdfs:domain epi:HumanAgent ;
+              rdfs:range epi:HumanAgent ;
+              rdfs:comment "Lie un agent enfant à son agent parent. Inverse de epi:hasChild."@fr ;
+              rdfs:label "hasParent"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#hasSocietyModel
+epi:hasSocietyModel rdf:type owl:ObjectProperty ;
+                    rdfs:domain epi:SimulationModel ;
+                    rdfs:range epi:SocietyModel ;
+                    rdfs:comment "Lie un modèle de simulation à sa représentation de la structure sociale."@fr ;
+                    rdfs:label "hasSocietyModel"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#hasTransportModel
+epi:hasTransportModel rdf:type owl:ObjectProperty ;
+                      rdfs:domain epi:SimulationModel ;
+                      rdfs:range epi:TransportModel ;
+                      rdfs:comment "Lie un modèle de simulation à sa représentation du transport et de la mobilité."@fr ;
+                      rdfs:label "hasTransportModel"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#transitionsTo
+epi:transitionsTo rdf:type owl:ObjectProperty ,
+                           owl:IrreflexiveProperty ;
+                  rdfs:domain epi:AgentState ;
+                  rdfs:range epi:AgentState ;
+                  rdfs:comment "Représente une transition entre deux états d'agent. S→E, E→I, I→R, I→D, R→S (modèles SIRS). Irreflexive : un état ne transitionne pas vers lui-même. Ce nest pas Asymmetric car les cycles sont biologiquement possibles (SIRS, réinfection)."@fr ;
+                  rdfs:label "transitionsTo"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#transmitsTo
+epi:transmitsTo rdf:type owl:ObjectProperty ;
+                rdfs:domain epi:Agent ;
+                rdfs:range epi:Agent ;
+                rdfs:comment "Représente la transmission de la maladie d'un agent Infectious à un agent Susceptible lors d'un contact."@fr ;
+                rdfs:label "transmitsTo"@en .
+
+
+#################################################################
+#    Data properties
+#################################################################
+
+###  http://www.ontosim-epi.org/ontology#agentAge
+epi:agentAge rdf:type owl:DatatypeProperty ;
+             rdfs:domain epi:HumanAgent ;
+             rdfs:range xsd:integer ;
+             rdfs:comment "Âge d'un agent humain en années. Influence les patterns de contact et la susceptibilité."@fr ;
+             rdfs:label "agentAge"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#agentId
+epi:agentId rdf:type owl:DatatypeProperty ;
+            rdfs:domain epi:Agent ;
+            rdfs:range xsd:string ;
+            rdfs:comment "Identifiant unique d'un agent dans la simulation."@fr ;
+            rdfs:label "agentId"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#contactProbability
+epi:contactProbability rdf:type owl:DatatypeProperty ;
+                       rdfs:domain epi:ContactPattern ;
+                       rdfs:range xsd:double ;
+                       rdfs:comment "Probabilité de contact dans ce pattern [0,1]. Composante de β = contactProbability × transmissionProbabilityPerContact."@fr ;
+                       rdfs:label "contactProbability"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#householdSize
+epi:householdSize rdf:type owl:DatatypeProperty ;
+                  rdfs:domain epi:Household ;
+                  rdfs:range xsd:decimal ;
+                  rdfs:comment "Nombre de personnes dans le ménage. Au Sénégal : taille moyenne 8.5 personnes (source : ANSD)."@fr ;
+                  rdfs:label "householdSize"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#mapResolution
+epi:mapResolution rdf:type owl:DatatypeProperty ;
+                  rdfs:domain epi:GeographicMap ;
+                  rdfs:range xsd:string ;
+                  rdfs:comment "Résolution de la carte géographique. Ex: '1km', 'quartier', 'région'."@fr ;
+                  rdfs:label "mapResolution"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#movementSpeed
+epi:movementSpeed rdf:type owl:DatatypeProperty ;
+                  rdfs:domain epi:MobilityPattern ;
+                  rdfs:range xsd:double ;
+                  rdfs:comment "Vitesse de déplacement de l'agent dans l'environnement."@fr ;
+                  rdfs:label "movementSpeed"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#populationType
+epi:populationType rdf:type owl:DatatypeProperty ;
+                   rdfs:domain epi:SocietyModel ;
+                   rdfs:range xsd:string ;
+                   rdfs:comment "Description du type de population modélisée. Ex: 'urbaine', 'rurale', 'mixte'."@fr ;
+                   rdfs:label "populationType"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#transmissionProbabilityPerContact
+epi:transmissionProbabilityPerContact rdf:type owl:DatatypeProperty ;
+                                      rdfs:domain epi:TransmissionBehavior ;
+                                      rdfs:range xsd:double ;
+                                      rdfs:comment "Probabilité de transmission lors d'un contact [0,1]. Composante de β = contactProbability × transmissionProbabilityPerContact."@fr ;
+                                      rdfs:label "transmissionProbabilityPerContact"@en .
+
+
+#################################################################
+#    Classes
+#################################################################
+
+###  http://www.ontosim-epi.org/ontology#AdaptiveBehavior
+epi:AdaptiveBehavior rdf:type owl:Class ;
+                     rdfs:subClassOf epi:Behavior ;
+                     rdfs:comment "Comportement adaptatif spontané basé sur la perception du risque par l'agent : auto-isolement, changement de mobilité par peur, évitement de zones infectées. Distinct de PreventiveBehavior qui répond à des mesures officielles."@fr ;
+                     rdfs:label "AdaptiveBehavior"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#Agent
+epi:Agent rdf:type owl:Class ;
+          rdfs:subClassOf epi:AgentComponent ;
+          rdfs:comment "Entité autonome dans un modèle ABM épidémiologique. Interagit avec d'autres agents et l'environnement selon des règles comportementales."@fr ;
+          rdfs:label "Agent"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#AgentComponent
+epi:AgentComponent rdf:type owl:Class ;
+                   rdfs:subClassOf epi:ModelComponent ;
+                   rdfs:comment "Composant atomique d'un modèle ABM représentant un agent. Spécialise epi:ModelComponent [C2] pour le paradigme multi-agents. Source : Hunter et al. (2017). JASSS, 20(3)."@fr ;
+                   rdfs:label "AgentComponent"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#AgentInteractionProcess
+epi:AgentInteractionProcess rdf:type owl:Class ;
+                            rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000015> ;
+                            rdfs:comment "Processus d'interaction entre agents dans un modèle ABM. Sous BFO:0000015 (process) [C1]. Peut déclencher une TransmissionProcess si l'interaction est entre un agent Infectious et un agent Susceptible."@fr ;
+                            rdfs:label "AgentInteractionProcess"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#AgentState
+epi:AgentState rdf:type owl:Class ;
+               rdfs:subClassOf epi:StateComponent ;
+               rdfs:comment "État d'un agent ABM à un instant t dans la simulation. Spécialise epi:StateComponent [C2] pour le paradigme multi-agents épidémiologique."@fr ;
+               rdfs:label "AgentState"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#AirborneContact
+epi:AirborneContact rdf:type owl:Class ;
+                    rdfs:subClassOf epi:Interaction ;
+                    rdfs:comment "Contact via gouttelettes ou aérosols en suspension. Ne nécessite pas de contact physique direct. Typique de COVID-19, tuberculose, rougeole."@fr ;
+                    rdfs:label "AirborneContact"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#Behavior
+epi:Behavior rdf:type owl:Class ;
+             rdfs:subClassOf epi:BehaviorComponent ;
+             rdfs:comment "Règle de comportement d'un agent dans la simulation."@fr ;
+             rdfs:label "Behavior"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#BehaviorComponent
+epi:BehaviorComponent rdf:type owl:Class ;
+                      rdfs:subClassOf epi:RuleComponent ;
+                      rdfs:comment "Composant comportemental d'un agent ABM. Spécialise epi:RuleComponent [C2] car un comportement est défini par des règles conditionnelles qui gouvernent les actions de l'agent."@fr ;
+                      rdfs:label "BehaviorComponent"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#BehavioralMobility
+epi:BehavioralMobility rdf:type owl:Class ;
+                       rdfs:subClassOf epi:MobilityPattern ;
+                       rdfs:comment "Déplacements liés à des comportements épidémiques : fuite d'une zone infectée, déplacement vers un centre de santé."@fr ;
+                       rdfs:label "BehavioralMobility"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#CommunityContact
+epi:CommunityContact rdf:type owl:Class ;
+                     rdfs:subClassOf epi:ContactPattern ;
+                     rdfs:comment "Contacts dans les lieux publics : marchés, transports, lieux de culte, centres de santé. Particulièrement important dans le contexte sénégalais."@fr ;
+                     rdfs:label "CommunityContact"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#ContactPattern
+epi:ContactPattern rdf:type owl:Class ;
+                   rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                   rdfs:comment "Patron de contact définissant où et comment les agents se rencontrent. Pour les ABM, β n'est pas un taux global mais le produit : fréquence_contact × probabilité_transmission. Les patterns structurent cette information."@fr ;
+                   rdfs:label "ContactPattern"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#DailyCommuting
+epi:DailyCommuting rdf:type owl:Class ;
+                   rdfs:subClassOf epi:MobilityPattern ;
+                   rdfs:comment "Déplacements quotidiens réguliers : domicile-travail, domicile-école."@fr ;
+                   rdfs:label "DailyCommuting"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#Dead
+epi:Dead rdf:type owl:Class ;
+         rdfs:subClassOf epi:EpidemiologicalState ;
+         rdfs:comment "Agent décédé de la maladie. État terminal dans la simulation, ne participe plus aux interactions. Contribue au calcul du taux de létalité (CFR)."@fr ;
+         rdfs:label "Dead"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#DirectContact
+epi:DirectContact rdf:type owl:Class ;
+                  rdfs:subClassOf epi:Interaction ;
+                  rdfs:comment "Contact physique direct entre agents : poignée de main, contact rapproché. Pour maladies à transmission par contact (Ebola, MST)."@fr ;
+                  rdfs:label "DirectContact"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#DynamicResearch
+epi:DynamicResearch rdf:type owl:Class ;
+                    rdfs:subClassOf epi:ModelUsage ;
+                    rdfs:comment "Recherche sur la dynamique des maladies, comprendre les mécanismes de propagation."@fr ;
+                    rdfs:label "DynamicResearch"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#EnrichedMap
+epi:EnrichedMap rdf:type owl:Class ;
+                rdfs:subClassOf epi:EnvironmentModel ;
+                rdfs:comment "Carte enrichie avec facteurs additionnels : climat, écologie, populations vectrices, hydrologie."@fr ;
+                rdfs:label "EnrichedMap"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#EnvironmentModel
+epi:EnvironmentModel rdf:type owl:Class ;
+                     rdfs:subClassOf epi:EnvironmentComponent ;
+                     rdfs:comment """Représentation de l'espace dans lequel les agents évoluent. Spécialise epi:EnvironmentComponent [C2].
+Source : Hunter et al. (2017) The taxonomy breaks the environmental model down to three levels: no added environment, maps, and maps plus other environmental factors."""@fr ;
+                     rdfs:label "EnvironmentModel"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#EnvironmentalSource
+epi:EnvironmentalSource rdf:type owl:Class ;
+                        rdfs:subClassOf epi:Agent ;
+                        rdfs:comment "Source environnementale de contamination dans un modèle ABM. Exemples : eau contaminée (choléra), sol contaminé, réservoir animal (Ebola). Participant passif dans les processus de transmission. Distinct d'un agent actif car sans autonomie décisionnelle."@fr ;
+                        rdfs:label "EnvironmentalSource"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#EpidemicPlanning
+epi:EpidemicPlanning rdf:type owl:Class ;
+                     rdfs:subClassOf epi:ModelUsage ;
+                     rdfs:comment "Planification épidémique - tester des stratégies d'intervention sanitaire."@fr ;
+                     rdfs:label "EpidemicPlanning"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#EpidemiologicalState
+epi:EpidemiologicalState rdf:type owl:Class ;
+                         rdfs:subClassOf epi:AgentState ;
+                         rdfs:comment "État sanitaire d'un agent dans la dynamique de la maladie. Sous-classe intermédiaire qui sépare les états SEIRD des autres types d'états possibles (mobilité, comportement), évite le 'SEIR caché'."@fr ;
+                         rdfs:label "EpidemiologicalState"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#Exposed
+epi:Exposed rdf:type owl:Class ;
+            rdfs:subClassOf epi:EpidemiologicalState ;
+            rdfs:comment "Agent exposé au pathogène mais pas encore infectieux. Correspond à la période d'incubation."@fr ;
+            rdfs:label "Exposed"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#GeneralSociety
+epi:GeneralSociety rdf:type owl:Class ;
+                   rdfs:subClassOf epi:SocietyModel ;
+                   rdfs:comment "Population synthétique abstraite sans données réelles."@fr ;
+                   rdfs:label "GeneralSociety"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#GeographicMap
+epi:GeographicMap rdf:type owl:Class ;
+                  rdfs:subClassOf epi:EnvironmentModel ;
+                  rdfs:comment "Carte géographique basique : routes, zones résidentielles, bâtiments."@fr ;
+                  rdfs:label "GeographicMap"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#Household
+epi:Household rdf:type owl:Class ;
+              rdfs:subClassOf epi:SocialStructure ;
+              rdfs:comment "Ménage - unité sociale de base dans la simulation. Taille définie par epi:householdSize. Au Sénégal : taille moyenne de 8.5 personnes (source : ANSD)."@fr ;
+              rdfs:label "Household"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#HouseholdContact
+epi:HouseholdContact rdf:type owl:Class ;
+                     rdfs:subClassOf epi:ContactPattern ;
+                     rdfs:comment "Contacts au sein du ménage. Fréquence très élevée, durée longue. Coefficient le plus fort dans la matrice de contacts."@fr ;
+                     rdfs:label "HouseholdContact"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#HumanAgent
+epi:HumanAgent rdf:type owl:Class ;
+               rdfs:subClassOf epi:Agent ;
+               rdfs:comment "Agent représentant un individu humain. Possède un état épidémiologique (EpidemiologicalState) et des patterns de contact et de mobilité."@fr ;
+               rdfs:label "HumanAgent"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#IndirectContact
+epi:IndirectContact rdf:type owl:Class ;
+                    rdfs:subClassOf epi:Interaction ;
+                    rdfs:comment "Contact via surfaces ou objets contaminés Typique du norovirus, hépatite A."@fr ;
+                    rdfs:label "IndirectContact"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#Infectious
+epi:Infectious rdf:type owl:Class ;
+               rdfs:subClassOf epi:EpidemiologicalState ;
+               rdfs:comment "Agent infecté et capable de transmettre la maladie à des agents Susceptible lors de contacts. Transition vers Recovered (taux γ) ou Dead (taux δ)."@fr ;
+               rdfs:label "Infectious"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#InstitutionalAgent
+epi:InstitutionalAgent rdf:type owl:Class ;
+                       rdfs:subClassOf epi:Agent ;
+                       rdfs:comment "Agent représentant une institution décisionnelle : hôpital, ministère de la santé, centre de vaccination. Permet de modéliser les interventions sanitaires comme actions d'acteurs institutionnels. Utile pour les politiques de vaccination, quarantaine, couvre-feu."@fr ;
+                       rdfs:label "InstitutionalAgent"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#Interaction
+epi:Interaction rdf:type owl:Class ;
+                rdfs:subClassOf epi:InteractionComponent ;
+                rdfs:comment "Type de contact entre agents pouvant mener à une transmission de la maladie."@fr ;
+                rdfs:label "Interaction"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#InteractionComponent
+epi:InteractionComponent rdf:type owl:Class ;
+                         rdfs:subClassOf epi:ModelComponent ;
+                         rdfs:comment "Composant interaction entre agents ABM. Spécialise epi:ModelComponent [C2]. Une interaction est un contact entre agents qui PEUT provoquer une transition d'état mais n'est pas elle-même une transition."@fr ;
+                         rdfs:label "InteractionComponent"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#LongDistance
+epi:LongDistance rdf:type owl:Class ;
+                 rdfs:subClassOf epi:MobilityPattern ;
+                 rdfs:comment "Déplacements longue distance : migrations inter-régionales, voyages entre villes. Contribue à la diffusion spatiale de l'épidémie."@fr ;
+                 rdfs:label "LongDistance"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#MethodologicalResearch
+epi:MethodologicalResearch rdf:type owl:Class ;
+                           rdfs:subClassOf epi:ModelUsage ;
+                           rdfs:comment "Recherche méthodologique - améliorer les approches de modélisation ABM."@fr ;
+                           rdfs:label "MethodologicalResearch"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#MobilityPattern
+epi:MobilityPattern rdf:type owl:Class ;
+                    rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                    rdfs:comment "Patron de mobilité définissant comment les agents se déplacent dans l'environnement spatial."@fr ;
+                    rdfs:label "MobilityPattern"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#ModelUsage
+epi:ModelUsage rdf:type owl:Class ;
+               rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+               rdfs:comment "Objectif d'utilisation du modèle ABM."@fr ;
+               rdfs:label "ModelUsage"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#MovementBehavior
+epi:MovementBehavior rdf:type owl:Class ;
+                     rdfs:subClassOf epi:Behavior ;
+                     rdfs:comment "Règle gouvernant le déplacement d'un agent : domicile-travail, déplacement aléatoire, migration longue distance."@fr ;
+                     rdfs:label "MovementBehavior"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#MovementProcess
+epi:MovementProcess rdf:type owl:Class ;
+                    rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000015> ;
+                    rdfs:comment "Processus de déplacement d'un agent dans l'environnement spatial. Influence les ContactPattern et la propagation spatiale. Sous BFO:0000015 (process) [C1]."@fr ;
+                    rdfs:label "MovementProcess"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#NoEnvironment
+epi:NoEnvironment rdf:type owl:Class ;
+                  rdfs:subClassOf epi:EnvironmentModel ;
+                  rdfs:comment "Pas d'environnement spatial explicite. Agents interagissent dans un espace abstrait ouvert."@fr ;
+                  rdfs:label "NoEnvironment"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#ParentChildInteraction
+epi:ParentChildInteraction rdf:type owl:Class ;
+                           rdfs:subClassOf epi:Interaction ;
+                           rdfs:comment "Choix de modelisation : Fait pour que l'on ait la possibilite de gerer semantiquement la transmission mere/enfant. et faire des inferrences."@fr ,
+                                        "Interaction entre un agent parent et son agent enfant dans un modèle ABM. Type de contact générique indépendant de toute maladie. Nécessite la relation epi:hasChild entre agents HumanAgent."@fr ;
+                           rdfs:label "ParentChildInteraction"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#PreventiveBehavior
+epi:PreventiveBehavior rdf:type owl:Class ;
+                       rdfs:subClassOf epi:Behavior ;
+                       rdfs:comment "Comportement préventif en réponse à une mesure officielle : port du masque imposé, distanciation obligatoire, isolement réglementaire."@fr ;
+                       rdfs:label "PreventiveBehavior"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#Recovered
+epi:Recovered rdf:type owl:Class ;
+              rdfs:subClassOf epi:EpidemiologicalState ;
+              rdfs:comment "Agent guéri ou immunisé. Ne peut plus transmettre. Peut redevenir Susceptible si immunité temporaire (epi:reinfectionPossible = true) dans les modèles SIS ou SIRS."@fr ;
+              rdfs:label "Recovered"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#ReligiousPlace
+epi:ReligiousPlace rdf:type owl:Class ;
+                   rdfs:subClassOf epi:SocialStructure ;
+                   rdfs:comment "Lieu de culte (mosquée, église, temple). Lieu de rassemblement important dans le contexte africain. Représente un nœud à haut risque de transmission."@fr ;
+                   rdfs:label "ReligiousPlace"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#RetrospectiveAnalysis
+epi:RetrospectiveAnalysis rdf:type owl:Class ;
+                          rdfs:subClassOf epi:ModelUsage ;
+                          rdfs:comment "Analyse rétrospective - étudier des épidémies passées avec des données historiques."@fr ;
+                          rdfs:label "RetrospectiveAnalysis"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#School
+epi:School rdf:type owl:Class ;
+           rdfs:subClassOf epi:SocialStructure ;
+           rdfs:comment "Établissement scolaire - lieu de contact pour les agents enfants et adolescents."@fr ;
+           rdfs:label "School"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#SchoolContact
+epi:SchoolContact rdf:type owl:Class ;
+                  rdfs:subClassOf epi:ContactPattern ;
+                  rdfs:comment "Contacts en milieu scolaire. Concerne les agents enfants et adolescents. Forte densité de contacts, particulièrement important pour la grippe."@fr ;
+                  rdfs:label "SchoolContact"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#SocialStructure
+epi:SocialStructure rdf:type owl:Class ;
+                    rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                    rdfs:comment "Groupement social auquel appartient un agent. Détermine ses patterns de contact et sa mobilité quotidienne."@fr ;
+                    rdfs:label "SocialStructure"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#SocietyModel
+epi:SocietyModel rdf:type owl:Class ;
+                 rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                 rdfs:comment "Représentation de la structure de la population dans un modèle ABM."@fr ;
+                 rdfs:label "SocietyModel"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#SpecificSociety
+epi:SpecificSociety rdf:type owl:Class ;
+                    rdfs:subClassOf epi:SocietyModel ;
+                    rdfs:comment "Population basée sur des données réelles (recensement, enquêtes)."@fr ;
+                    rdfs:label "SpecificSociety"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#Susceptible
+epi:Susceptible rdf:type owl:Class ;
+                rdfs:subClassOf epi:EpidemiologicalState ;
+                rdfs:comment "Agent pouvant être infecté. État initial de la majorité des agents au début de la simulation. Transition vers Exposed lors d'un contact avec un agent Infectious."@fr ;
+                rdfs:label "Susceptible"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#TransmissionBehavior
+epi:TransmissionBehavior rdf:type owl:Class ;
+                         rdfs:subClassOf epi:Behavior ;
+                         rdfs:comment "Règle gouvernant la transmission de la maladie lors d'un contact. Probabilité définie par epi:transmissionProbabilityPerContact."@fr ;
+                         rdfs:label "TransmissionBehavior"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#TransmissionProcess
+epi:TransmissionProcess rdf:type owl:Class ;
+                        rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000015> ;
+                        rdfs:comment "Processus de transmission de la maladie entre un agent Infectious et un agent Susceptible. Résulte en une transition d'état S → E. Sous BFO:0000015 (process) [C1]."@fr ;
+                        rdfs:label "TransmissionProcess"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#TransportModel
+epi:TransportModel rdf:type owl:Class ;
+                   rdfs:subClassOf epi:SimulationKnowledgeArtifact ;
+                   rdfs:comment "Représentation de la mobilité des agents dans l'environnement."@fr ;
+                   rdfs:label "TransportModel"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#VectorAgent
+epi:VectorAgent rdf:type owl:Class ;
+                rdfs:subClassOf epi:Agent ;
+                rdfs:comment "Agent représentant un vecteur de transmission biologique : moustique Anopheles (paludisme), Aedes Aegypti (dengue, zika). Transmet la maladie sans en être affecté comme un hôte humain."@fr ;
+                rdfs:label "VectorAgent"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#VectorContact
+epi:VectorContact rdf:type owl:Class ;
+                  rdfs:subClassOf epi:Interaction ;
+                  rdfs:comment "Contact via un vecteur biologique (moustique, tique). Nécessite un VectorAgent. Typique de la malaria, dengue, zika."@fr ;
+                  rdfs:label "VectorContact"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#WithTransport
+epi:WithTransport rdf:type owl:Class ;
+                  rdfs:subClassOf epi:TransportModel ;
+                  rdfs:comment "Modèle incluant des déplacements explicites des agents. Interactions déterminées par la mobilité spatiale."@fr ;
+                  rdfs:label "WithTransport"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#WithoutTransport
+epi:WithoutTransport rdf:type owl:Class ;
+                     rdfs:subClassOf epi:TransportModel ;
+                     rdfs:comment "Modèle sans déplacements explicites. Interactions basées sur des réseaux de contacts prédéfinis."@fr ;
+                     rdfs:label "WithoutTransport"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#Workplace
+epi:Workplace rdf:type owl:Class ;
+              rdfs:subClassOf epi:SocialStructure ;
+              rdfs:comment "Lieu de travail - lieu de contact pour les agents adultes actifs."@fr ;
+              rdfs:label "Workplace"@en .
+
+
+###  http://www.ontosim-epi.org/ontology#WorkplaceContact
+epi:WorkplaceContact rdf:type owl:Class ;
+                     rdfs:subClassOf epi:ContactPattern ;
+                     rdfs:comment "Contacts professionnels. Concerne les agents adultes actifs. Fréquence modérée, impact sur la propagation en milieu urbain."@fr ;
+                     rdfs:label "WorkplaceContact"@en .
+
+
+###  Generated by the OWL API (version 4.5.29.2024-05-13T12:11:03Z) https://github.com/owlcs/owlapi
